@@ -36,6 +36,7 @@ func (s *SubService) GetSubs(subId string, host string, showInfo bool) ([]string
 	}
 	for _, inbound := range inbounds {
 		clients, err := s.inboundService.GetClients(inbound)
+		inbound.Port = 443
 		if err != nil {
 			logger.Error("SubService - GetSub: Unable to get clients from inbound")
 		}
@@ -57,6 +58,7 @@ func (s *SubService) GetSubs(subId string, host string, showInfo bool) ([]string
 				inbound.StreamSettings = string(modifiedStream)
 			}
 		}
+		inbound.Port = 443
 		for _, client := range clients {
 			if client.Enable && client.SubID == subId {
 				link := s.getLink(inbound, client.Email)
@@ -276,7 +278,7 @@ func (s *SubService) genVlessLink(inbound *model.Inbound, email string) string {
 		}
 	}
 	uuid := clients[clientIndex].ID
-	port := inbound.Port
+	port := 443
 	streamNetwork := stream["network"].(string)
 	params := make(map[string]string)
 	params["type"] = streamNetwork
