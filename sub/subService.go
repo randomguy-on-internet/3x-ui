@@ -70,6 +70,7 @@ func (s *SubService) GetSubs(subId string, host string, showInfo bool) ([]string
 				clientTraffics = append(clientTraffics, s.getClientTraffics(inbound.ClientStats, client.Email))
 			}
 		}
+		inbound.Port = 443
 	}
 	for index, clientTraffic := range clientTraffics {
 		if index == 0 {
