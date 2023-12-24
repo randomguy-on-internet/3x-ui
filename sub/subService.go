@@ -63,6 +63,7 @@ func (s *SubService) GetSubs(subId string, host string, showInfo bool) ([]string
 				inbound.StreamSettings = string(modifiedStream)
 			}
 		}
+		inbound.Port = 443
 		for _, client := range clients {
 			if client.Enable && client.SubID == subId {
 				link := s.getLink(inbound, client.Email)
@@ -70,7 +71,6 @@ func (s *SubService) GetSubs(subId string, host string, showInfo bool) ([]string
 				clientTraffics = append(clientTraffics, s.getClientTraffics(inbound.ClientStats, client.Email))
 			}
 		}
-		inbound.Port = 443
 	}
 	for index, clientTraffic := range clientTraffics {
 		if index == 0 {
